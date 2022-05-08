@@ -5,8 +5,10 @@ from translate.translate_startegy import TranslateStrategy
 
 class AWSDetectAndTranslateStrategy(TranslateStrategy):
 
-    @staticmethod
-    def translate(target: str, lang: str) -> str:
+    def __init__(self):
+        pass
+
+    def translate(self, target: str, lang: str) -> str:
         frm_lang_code = AWSComprehendDetectService.detect(target)
         translated_text = AWSNTMTranslateService.translate(target, frm_lang_code, lang)
 

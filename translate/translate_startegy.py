@@ -1,2 +1,2 @@
 class TranslateStrategy:
-    def translate(self): raise NotImplementedError
+    def translate(self, target: str, lang: str) -> str: raise NotImplementedError
