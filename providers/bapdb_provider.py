@@ -1,4 +1,5 @@
 from domain.factory.bapdb_factory import BAPDBFactory
+from translate.aws_detect_and_translate_strategy import AWSDetectAndTranslateStrategy
 
 
 class BAPDBProvider:
@@ -15,7 +16,7 @@ class BAPDBProvider:
         bapdbs = []
 
         for r in records:
-            bapdbs.append(BAPDBFactory.build(r))
+            bapdbs.append(BAPDBFactory.build_en_translated(r, AWSDetectAndTranslateStrategy()))
 
     def provide(self):
         return self._bulk_provide()
