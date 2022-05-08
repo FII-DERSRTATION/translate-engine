@@ -1,9 +1,13 @@
+from service.impl.aws_comprehend_detect_service import AWSComprehendDetectService
+from service.impl.aws_ntm_translate_service import AWSNTMTranslateService
 from translate.translate_startegy import TranslateStrategy
 
 
 class AWSDetectAndTranslateStrategy(TranslateStrategy):
 
-    def translate(self, target: str) -> str:
-        # detect and trasnlate
+    @staticmethod
+    def translate(target: str, lang: str) -> str:
+        frm_lang_code = AWSComprehendDetectService.detect(target)
+        translated_text = AWSNTMTranslateService.translate(target, frm_lang_code, lang)
 
-        pass
+        return translated_text
