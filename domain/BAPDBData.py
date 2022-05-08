@@ -6,6 +6,10 @@ D - Diganostic
 B - Biufunde
 """
 
+## todo: refaactor bifunde to befunde (findings)
+## todo: refactor berteleug (assesment) to berte
+## todo: put them in english
+
 
 class BAPDBData:
 
