@@ -16,4 +16,4 @@ class AWSNTMTranslateService(LanguageTranslateService):
             service_name=aws_service,
             region_name=aws_region_name)
 
-        return translate.translate_text(Text=data, SourceLanguageCode=frm, TargetLanguageCode=to)
+        return translate.translate_text(Text=data, SourceLanguageCode=frm, TargetLanguageCode=to)['TranslatedText']
