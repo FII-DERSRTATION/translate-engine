@@ -10,6 +10,8 @@ class AWSDetectAndTranslateStrategy(TranslateStrategy):
 
     def translate(self, target: str, lang: str) -> str:
         frm_lang_code = AWSComprehendDetectService.detect(target)
+        if frm_lang_code != 'de' and frm_lang_code != 'fr':
+            frm_lang_code = 'de'
         translated_text = AWSNTMTranslateService.translate(target, frm_lang_code, lang)
 
         return translated_text

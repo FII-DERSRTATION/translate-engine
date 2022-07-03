@@ -1,3 +1,5 @@
+import uuid
+
 import boto3
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
 
@@ -25,8 +27,9 @@ class AWSOpenSearchBulkExporter(BulkExporter):
             connection_class=RequestsHttpConnection
         )
 
+    def create_index(self):
         # Create an index with non-default settings.
-        index_name = 'bapdb-reports'
+        index_name = 'bapdb-reports-tmp-3'
         index_body = {
             'settings': {
                 'index': {
@@ -39,13 +42,23 @@ class AWSOpenSearchBulkExporter(BulkExporter):
         print('\nCreating index:')
         print(response)
 
-
-
-    def create_index(self):
-        pass
-
     def export(self, data):
-        pass
+        for entry in data:
+            # Add a document to the index.
+            document = entry.render_json()
+            id = str(uuid.uuid4())
+
+            response = self.client.index(
+                index='bapdb-reports-prod-7',
+                body=document,
+                id=id,
+                refresh=True
+            )
+
+            print('\nAdding document:')
+            print(response)
+
+
 
 if __name__ == "__main__":
     AWSOpenSearchBulkExporter()
